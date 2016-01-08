@@ -14,6 +14,22 @@ import style from './editor.less';
 
 export default class Editor extends React.Component {
 
+    static propTypes = {
+        isFullScreen: React.PropTypes.bool,
+        onScroll: React.PropTypes.func,
+        onToggleNav: React.PropTypes.func,
+        onToggleFullScreen: React.PropTypes.func,
+        onChange: React.PropTypes.func
+    };
+
+    static defaultProps = {
+        isFullScreen: false,
+        onScroll: () => {},
+        onToggleNav: () => {},
+        onToggleFullScreen: () => {},
+        onChange: () => {}
+    };
+
     state = {
         editor: null
     };
@@ -89,6 +105,11 @@ export default class Editor extends React.Component {
         editor.insert(table);
     }
 
+    componentDidUpdate(){
+        const renderer = this.state.editor.renderer;
+        const padding = this.props.isFullScreen ? ($(window).width() - 800) / 2 : 30;
+        renderer.setPadding(padding);
+    }
     componentDidMount() {
         // Created by STRd6
         // MIT License
@@ -159,7 +180,7 @@ export default class Editor extends React.Component {
 
         return (
             <div className={style.editor}>
-                <Toolbar>
+                <Toolbar isFullScreen={this.props.isFullScreen} >
                     <ToolbarItem icon="bars" onClick={this.props.onToggleNav}/>
                     <ToolbarItem icon="bold" onClick={this.onBold.bind(this)}/>
                     <ToolbarItem icon="italic" onClick={this.onItalic.bind(this)}/>
@@ -168,7 +189,7 @@ export default class Editor extends React.Component {
                     <ToolbarItem icon="list" onClick={this.onList.bind(this)}/>
                     <ToolbarItem icon="list-ol" onClick={this.onOrderList.bind(this)}/>
                     <ToolbarItem icon="table" onClick={this.onTable.bind(this)}/>
-                    <ToolbarItem icon="expand" align="right" onClick={this.props.onToggleFullScreen}/>
+                    <ToolbarItem icon={this.props.isFullScreen ? 'compress' : 'expand'} align="right" onClick={this.props.onToggleFullScreen}/>
                 </Toolbar>
                 <div className={style.wrapper} ref="editorWrapper">
                     <AceEditor

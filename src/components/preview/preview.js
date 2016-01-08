@@ -21,16 +21,18 @@ export default class Preview extends React.Component {
     }
 
     render() {
+        const html = parser(this.props.children.toString());
         return (
             <div className={`${style.preview}`}>
                 <Toolbar
                     markdown={this.props.children}
                     onTitleChange={this.onTitleChange.bind(this)}
-                    title={this.props.title}/>
+                    title={this.props.title}
+                    html={html}/>
                 <div
                     className={`${style['preview-content']} markdown-body`}
                     ref="preview">
-                    <div dangerouslySetInnerHTML={{__html: parser(this.props.children.toString())}}></div>
+                    <div dangerouslySetInnerHTML={{__html: html}}></div>
                 </div>
             </div>
         );

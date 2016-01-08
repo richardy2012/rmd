@@ -35,31 +35,41 @@ export default class Toolbar extends React.Component {
         this.setState({isShowMenu: false});
     }
 
+    exportFile(content, filename){
+        let a = document.createElement('a');
+        a.setAttribute('style', 'display: none');
+        document.body.appendChild(a);
+        let blob = new Blob([content], {type: 'octet/stream'});
+        let url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    }
+
     onExportMarkdown() {
         const content = this.props.markdown.toString();
-
-        let saveData = (function () {
-            let a = document.createElement('a');
-            a.setAttribute('style', 'display: none');
-            document.body.appendChild(a);
-            return function (data, fileName) {
-                let blob = new Blob([data], {type: 'octet/stream'});
-                let url = window.URL.createObjectURL(blob);
-                a.href = url;
-                a.download = fileName;
-                a.click();
-                window.URL.revokeObjectURL(url);
-                a.remove();
-            };
-        }());
-
-        saveData(content, this.props.title ? `${this.props.title}.md` : 'untitled.md');
+        this.exportFile(content, this.props.title ? `${this.props.title}.md` : 'untitled.md');
 
         this.setState({isShowMenu: false});
     }
 
     onExportHTML() {
-        // TODO
+        const title = this.props.title ? `${this.props.title}.html` : 'untitled.html';
+        const html = `<!DOCTYPE html>
+                        <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+                                <title>${title}</title>
+                            </head>
+                            <body>
+                                ${this.props.html}
+                            </body>
+                        </html>`;
+        this.exportFile(html, title);
+
         this.setState({isShowMenu: false});
     }
 

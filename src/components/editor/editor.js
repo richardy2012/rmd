@@ -168,6 +168,7 @@ export default class Editor extends React.Component {
                     <ToolbarItem icon="list" onClick={this.onList.bind(this)}/>
                     <ToolbarItem icon="list-ol" onClick={this.onOrderList.bind(this)}/>
                     <ToolbarItem icon="table" onClick={this.onTable.bind(this)}/>
+                    <ToolbarItem icon="expand" align="right" onClick={this.props.onToggleFullScreen}/>
                 </Toolbar>
                 <div className={style.wrapper} ref="editorWrapper">
                     <AceEditor

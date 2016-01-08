@@ -8,6 +8,18 @@ import parser from './parse';
 
 export default class Preview extends React.Component {
 
+    static propTypes = {
+        isFullScreen: React.PropTypes.bool,
+        title: React.PropTypes.string,
+        onTitleChange: React.PropTypes.func
+    };
+
+    static defaultProps = {
+        isFullScreen: false,
+        title: 'untitled',
+        onTitleChange: () => {}
+    };
+
     onTitleChange(title) {
         this.props.onTitleChange({title: title});
     }
@@ -22,8 +34,10 @@ export default class Preview extends React.Component {
 
     render() {
         const html = parser(this.props.children.toString());
+        const clazz = this.props.isFullScreen ? style['preview-full-screen'] : style['preview'];
+
         return (
-            <div className={`${style.preview}`}>
+            <div className={clazz}>
                 <Toolbar
                     markdown={this.props.children}
                     onTitleChange={this.onTitleChange.bind(this)}

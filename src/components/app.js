@@ -9,7 +9,8 @@ import style from './app.less';
 export default class App extends React.Component {
 
     state = {
-        showNav: false
+        showNav: false,
+        isFullScreen: false
     };
 
     syncPreviewScroll = _.debounce((scroll) => {
@@ -26,7 +27,6 @@ export default class App extends React.Component {
         session.setScrollTop(scroll);
     };
 
-
     onChange(obj) {
         const post = this.props.posts[0];
         this.props.actions.editPost($.extend({}, post, obj));
@@ -34,6 +34,10 @@ export default class App extends React.Component {
 
     onToggleNav() {
         this.setState({showNav: !this.state.showNav});
+    }
+
+    onToggleFullScreen() {
+        this.setState({isFullScreen: !this.state.isFullScreen});
     }
 
     componentDidMount() {
@@ -62,13 +66,16 @@ export default class App extends React.Component {
                 <Nav show={this.state.showNav}/>
                 <Editor
                     ref="editor"
+                    isFullScreen={this.state.isFullScreen}
                     onScroll={this.syncPreviewScroll.bind(this)}
                     onChange={this.onChange.bind(this)}
-                    onToggleNav={this.onToggleNav.bind(this)}>
+                    onToggleNav={this.onToggleNav.bind(this)}
+                    onToggleFullScreen={this.onToggleFullScreen.bind(this)}>
                     {post.markdown}
                 </Editor>
                 <Preview
                     ref="preview"
+                    isFullScreen={this.state.isFullScreen}
                     onTitleChange={this.onChange.bind(this)}
                     title={post.title}>
                     {post.markdown}

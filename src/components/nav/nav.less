@@ -1,0 +1,27 @@
+
+@navWidth: 200px;
+
+.nav {
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #373D49;
+    transition: all .2s ease;
+    border-right: 1px solid #4E4E4E;
+}
+
+.nav-show {
+    composes: nav;
+    width: @navWidth;
+}
+
+.hd {
+
+}
+
+.title{
+    font-weight: normal;
+    color: #888;
+    text-align: center;
+    padding: 20px 0;
+}

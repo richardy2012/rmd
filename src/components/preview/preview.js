@@ -25,11 +25,14 @@ export default class Preview extends React.Component {
     }
 
     componentDidUpdate() {
-        // render mathjax
-        MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.refs.preview]);
 
-        // render mermaid
-        mermaid.init();
+        if(!this.props.isFullScreen){
+            // render mathjax
+            MathJax.Hub.Queue(['Typeset', MathJax.Hub, this.refs.preview]);
+
+            // render mermaid
+            mermaid.init();
+        }
     }
 
     render() {

@@ -5,6 +5,9 @@
 html, body, #root {
     height: 100%;
 }
+body{
+    font-family: 'Helvetica Neue', Helvetica, 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
 ::-webkit-scrollbar {
     width: 8px;
 }

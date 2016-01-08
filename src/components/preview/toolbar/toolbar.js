@@ -1,5 +1,5 @@
-
 import React from 'react';
+import $ from 'jquery';
 import Icon from 'react-fa';
 import Dropdown from '../dropdown/dropdown';
 import Item from '../dropdown/dropdown_item';
@@ -36,7 +36,25 @@ export default class Toolbar extends React.Component {
     }
 
     onExportMarkdown() {
-        // TODO
+        const content = this.props.markdown.toString();
+
+        let saveData = (function () {
+            let a = document.createElement('a');
+            a.setAttribute('style', 'display: none');
+            document.body.appendChild(a);
+            return function (data, fileName) {
+                let blob = new Blob([data], {type: 'octet/stream'});
+                let url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+            };
+        }());
+
+        saveData(content, this.props.title ? `${this.props.title}.md` : 'untitled.md');
+
         this.setState({isShowMenu: false});
     }
 

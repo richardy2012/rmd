@@ -23,7 +23,10 @@ export default class Preview extends React.Component {
     render() {
         return (
             <div className={`${style.preview}`}>
-                <Toolbar onTitleChange={this.onTitleChange.bind(this)} title={this.props.title}/>
+                <Toolbar
+                    markdown={this.props.children}
+                    onTitleChange={this.onTitleChange.bind(this)}
+                    title={this.props.title}/>
                 <div
                     className={`${style['preview-content']} markdown-body`}
                     ref="preview">

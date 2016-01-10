@@ -1,11 +1,9 @@
 
-import marked from 'marked';
+import marked from './marked';
 import highlight from 'highlight.js';
 import 'highlight.js/styles/default.css';
 
-
 var renderer = new marked.Renderer();
-
 renderer.code = function (code, lang, escaped) {
 
     if (lang === 'mermaid' && mermaid.parse(code)) {
@@ -32,7 +30,6 @@ renderer.code = function (code, lang, escaped) {
         + (escaped ? code : escape(code, true))
         + '\n</code></pre>\n';
 };
-
 renderer.listitem = function(text) {
     if (/^\s*\[[x ]\]\s*/.test(text)) {
         text = text
@@ -43,7 +40,6 @@ renderer.listitem = function(text) {
         return '<li>' + text + '</li>';
     }
 };
-
 renderer.image = function (href, title, text) {
 
     // place holder
@@ -58,7 +54,6 @@ renderer.image = function (href, title, text) {
     out += this.options.xhtml ? '/>' : '>';
     return out;
 };
-
 marked.setOptions({
     renderer: renderer,
     gfm: true,
@@ -67,11 +62,12 @@ marked.setOptions({
     pedantic: false,
     sanitize: true,
     smartLists: true,
-    smartypants: false
+    smartypants: false,
+    emoji: function (emoji) {
+        return '<span data-emoji="' + emoji + '"></span>';
+    }
 });
 
 export default function parser(markdown) {
     return marked(markdown);
 };
-
-

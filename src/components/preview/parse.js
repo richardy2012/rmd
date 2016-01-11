@@ -1,7 +1,8 @@
-
 import marked from './marked';
 import highlight from 'highlight.js';
 import 'highlight.js/styles/default.css';
+import map from './emoji/map.json';
+import './emoji/emoji.css';
 
 var renderer = new marked.Renderer();
 renderer.code = function (code, lang, escaped) {
@@ -30,7 +31,7 @@ renderer.code = function (code, lang, escaped) {
         + (escaped ? code : escape(code, true))
         + '\n</code></pre>\n';
 };
-renderer.listitem = function(text) {
+renderer.listitem = function (text) {
     if (/^\s*\[[x ]\]\s*/.test(text)) {
         text = text
             .replace(/^\s*\[ \]\s*/, '<i class="fa fa-square-o"></i> ')
@@ -63,8 +64,14 @@ marked.setOptions({
     sanitize: true,
     smartLists: true,
     smartypants: false,
-    emoji: function (emoji) {
-        return '<span data-emoji="' + emoji + '"></span>';
+    emoji: function (key) {
+        var emoji = map[key];
+        if (emoji) {
+            return `<span class="emoji emoji${emoji}"></span>`;
+        }
+        else {
+            return `:${key}:`;
+        }
     }
 });
 

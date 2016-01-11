@@ -58,6 +58,7 @@
         "eslint": "^1.10.3",
         "eslint-plugin-react": "^3.11.3",
         "file-loader": "^0.8.5",
+        "json-loader": "^0.5.4",
         "less": "^2.5.3",
         "less-loader": "^2.2.1",
         "mocha": "^2.3.4",

@@ -53,7 +53,10 @@ module.exports = {
                 loader: 'raw'
             }, {
                 test: /\.(png|jpg|gif|otf|eot|svg|ttf|woff)\??/,
-                loader: 'url-loader?limit=8192000'
+                loader: 'url-loader?limit=8192'
+            }, {
+                test: /\.json/,
+                loader: 'json'
             }
         ]
     },

@@ -1,5 +1,5 @@
 # RMD
-RMD 是一个开源的、使用 React 构建的 Markdown 编辑器。
+RMD 是一个开源的、使用 React 构建的 Markdown 编辑器:smile:。
 
 ### 特性
 - 完整的 Markdown 语法支持
@@ -81,10 +81,13 @@ sequenceDiagram
 ### TODO List
 
 - [ ] 改进同步滚动
-- [ ] FontAwesome 图标、Emoji 支持
-- [ ] 全屏编辑
+- [ ] FontAwesome 图标
+- [x] Emoji支持
+- [x] 全屏编辑
 - [ ] 更换主题风格
-- [ ] 导出`md`、`html`、`pdf`格式的文件
+- [x] 导出`md`
+- [x] 导出`html`
+- [ ] 导出`pdf`
 - [ ] 持久化保存数据
 
 ### 表格

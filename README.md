@@ -33,12 +33,15 @@ $ npm start
 
 ### TODO
 
-- 改进同步滚动
-- FontAwesome 图标、Emoji支持
-- 全屏编辑
-- 更换主题风格
-- 导出`md`、`html`、`pdf`格式的文件
-- 持久化保存数据
+- [ ] 改进同步滚动
+- [ ] FontAwesome 图标
+- [x] Emoji支持
+- [x] 全屏编辑
+- [ ] 更换主题风格
+- [x] 导出`md`
+- [x] 导出`html`
+- [ ] 导出`pdf`
+- [ ] 持久化保存数据
 
 ### License
 

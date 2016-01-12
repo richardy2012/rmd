@@ -7,7 +7,9 @@ module.exports = {
     browse: function (options) {
         return function *() {
             options = _.merge({offset: 0, limit: 15}, options);
-            var data = yield model.collections.post.find().skip(options.offset).limit(options.limit);
+            var user = this.state.user;
+
+            var data = yield model.collections.post.find({owner: user.id}).skip(options.offset).limit(options.limit);
 
             return {ret: 0, msg: 'ok', data: data};
         };

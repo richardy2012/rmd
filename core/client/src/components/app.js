@@ -19,7 +19,7 @@ export default class App extends React.Component {
         }, 100, 'linear');
     }, 50, {maxWait: 50});
 
-    syncEditorScroll (event) {
+    syncEditorScroll(event) {
         const scroll = event.target.scrollTop;
         const $editor = this.refs.editor.refs.editor.editor;
         const session = $editor.getSession();
@@ -46,7 +46,6 @@ export default class App extends React.Component {
         const $editor = this.refs.editor.refs.editor.editor;
         const session = $editor.getSession();
 
-
         $editorWrapper.on('mouseover', () => {
             $preview.off('scroll');
             session.on('changeScrollTop', this.syncPreviewScroll);
@@ -55,6 +54,10 @@ export default class App extends React.Component {
         $preview.on('mouseover', () => {
             session.off('changeScrollTop', this.syncPreviewScroll);
             $preview.on('scroll', this.syncEditorScroll.bind(this));
+        });
+
+        $.get(`/api/v1/post`).then((res) => {
+            this.props.actions.initPost(res.data);
         });
     }
 

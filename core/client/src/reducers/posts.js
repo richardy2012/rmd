@@ -1,16 +1,20 @@
 
 import {handleActions} from 'redux-actions';
 import uuid from 'node-uuid';
+import _ from 'lodash';
 import markdown from './markdown.txt';
 
-const initialState = JSON.parse(localStorage.getItem('posts')) || [{
-        id: uuid.v4(),
-        title: ``,
-        markdown: markdown,
-        html: ``
-    }];
+const initialState = [{
+    id: uuid.v4(),
+    title: ``,
+    markdown: markdown,
+    html: ``
+}];
 
 export default handleActions({
+    'init post' (state, action) {
+        return _.isEmpty(action.payload) ? initialState : action.payload;
+    },
     'add post' (state, action) {
         return [...state, {
             id: uuid.v4(),

@@ -32,6 +32,7 @@ export default class Toolbar extends React.Component {
 
     onSave() {
         // TODO
+        this.props.onSave(this.props.post);
         this.setState({isShowMenu: false});
     }
 

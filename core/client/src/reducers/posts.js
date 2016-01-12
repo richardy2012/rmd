@@ -8,7 +8,8 @@ const initialState = [{
     id: uuid.v4(),
     title: ``,
     markdown: markdown,
-    html: ``
+    html: ``,
+    unSave: true
 }];
 
 export default handleActions({
@@ -20,13 +21,17 @@ export default handleActions({
             id: uuid.v4(),
             title: ``,
             markdown: ``,
-            html: ``
+            html: ``,
+            unSave: true
         }];
     },
     'edit post'(state, action){
         return state.map((post) => {
             return post.id === action.payload.id ? action.payload : post;
         });
+    },
+    'save post' (state, action) {
+        return action.payload;
     },
     'delete post'(state, action){
         return state.filter((post) => {

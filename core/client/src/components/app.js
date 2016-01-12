@@ -81,7 +81,9 @@ export default class App extends React.Component {
                     ref="preview"
                     isFullScreen={this.state.isFullScreen}
                     onTitleChange={this.onChange.bind(this)}
+                    onSave={this.props.actions.savePost}
                     title={post.title}
+                    post={post}
                     user={user}>
                     {post.markdown}
                 </Preview>

@@ -91,6 +91,7 @@ export default class Toolbar extends React.Component {
                         <Item icon="download" onClick={this.onExportMarkdown.bind(this)}>导出Markdown</Item>
                         <Item icon="download" onClick={this.onExportHTML.bind(this)}>导出HTML</Item>
                         <Item icon="download" onClick={this.onExportPDF.bind(this)}>导出PDF</Item>
+                        <Item icon="github" href="https://github.com/progrape/rmd">关于</Item>
                     </Dropdown>
                 </div>
                 <div className={style.title}>

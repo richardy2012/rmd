@@ -6,19 +6,22 @@ import style from './dropdown.less';
 export default class DropdownItem extends React.Component {
     static propTypes = {
         icon: React.PropTypes.string,
-        onClick: React.PropTypes.func
+        onClick: React.PropTypes.func,
+        href: React.PropTypes.string
     };
 
     static defaultProps = {
         icon: 'download',
-        onClick: () => {}
+        onClick: () => {},
+        href: 'javascript:;'
     };
 
     render() {
-        const {icon, onClick, children} = this.props;
+        const {icon, href, onClick, children} = this.props;
+        const target = href === 'javascript:;' ? null : '_blank';
 
         return (
-            <a href="javascript:;" className={style.item} onClick={onClick}>
+            <a href={href} target={target} className={style.item} onClick={onClick}>
                 <Icon name={icon} /> {children}
             </a>
         );

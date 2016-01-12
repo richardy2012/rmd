@@ -21,14 +21,14 @@ else{
 }
 
 module.exports = {
-    context: path.join(__dirname, './src'),
+    context: path.join(__dirname, './core/client/src'),
     entry: {
         js: './app.js',
-        html: './index.html',
+        html: './editor.html',
         vendor: ['react', 'react-ace', 'brace', 'react-dom', 'jquery', 'react-redux', 'redux-thunk', 'redux-promise', 'redux-logger', 'marked', 'highlight.js']
     },
     output: {
-        path: path.join(__dirname, './dist'),
+        path: path.join(__dirname, './core/client/dist'),
         filename: 'bundle.js'
     },
     module: {

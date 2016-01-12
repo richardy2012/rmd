@@ -60,6 +60,7 @@ export default class App extends React.Component {
 
     render() {
         const post = this.props.posts[0];
+        const user = this.props.user;
 
         return (
             <div className={style.container}>
@@ -77,7 +78,8 @@ export default class App extends React.Component {
                     ref="preview"
                     isFullScreen={this.state.isFullScreen}
                     onTitleChange={this.onChange.bind(this)}
-                    title={post.title}>
+                    title={post.title}
+                    user={user}>
                     {post.markdown}
                 </Preview>
             </div>

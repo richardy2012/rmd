@@ -78,6 +78,17 @@ export default class Toolbar extends React.Component {
         this.setState({isShowMenu: false});
     }
 
+    _renderAvatar () {
+        const user = this.props.user;
+        if (user) {
+            return (
+                <div className={style.group}>
+                    <img src={user.avatar} alt="" className={style.avatar}/>
+                </div>
+            );
+        }
+    }
+
     render() {
 
         return (
@@ -94,6 +105,9 @@ export default class Toolbar extends React.Component {
                         <Item icon="github" href="https://github.com/progrape/rmd">关于</Item>
                     </Dropdown>
                 </div>
+                {
+                    this._renderAvatar()
+                }
                 <div className={style.title}>
                     <input type="text" className={style.input} onChange={this.onTitleChange.bind(this)}
                            value={this.props.title} placeholder="请输入标题"/>

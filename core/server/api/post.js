@@ -17,7 +17,8 @@ module.exports = {
     read: function (options) {
         return function *() {
             var id = options.id;
-            var data = yield model.collections.post.findOne().where({id: id});
+            var user = this.state.user;
+            var data = yield model.collections.post.findOne({id: id, owner: user.id});
 
             return {ret: 0, msg: 'ok', data: data};
         };

@@ -6,11 +6,11 @@ var api = require('../api');
 
 module.exports = function (){
 
-    router.get('/user', api.http(api.user.browse));
-    router.get('/user/:id', api.http(api.user.read));
-    router.post('/user', api.http(api.user.add));
-    router.put('/user/:id', api.http(api.user.edit));
-    router.delete('/user/:id', api.http(api.user.destroy));
+    //router.get('/user', api.http(api.user.browse));
+    //router.get('/user/:id', api.http(api.user.read));
+    //router.post('/user', api.http(api.user.add));
+    //router.put('/user/:id', api.http(api.user.edit));
+    //router.delete('/user/:id', api.http(api.user.destroy));
 
     router.get('/post', api.http(api.post.browse));
     router.get('/post/:id', api.http(api.post.read));

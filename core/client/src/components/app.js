@@ -9,7 +9,7 @@ import style from './app.less';
 export default class App extends React.Component {
 
     state = {
-        showNav: false,
+        showNav: true,
         isFullScreen: false
     };
 
@@ -67,7 +67,7 @@ export default class App extends React.Component {
 
         return (
             <div className={style.container}>
-                <Nav show={this.state.showNav}/>
+                <Nav show={this.state.showNav} posts={this.props.posts} />
                 <Editor
                     ref="editor"
                     isFullScreen={this.state.isFullScreen}

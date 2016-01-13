@@ -74,7 +74,9 @@ export default class App extends React.Component {
                     onScroll={this.syncPreviewScroll.bind(this)}
                     onChange={this.onChange.bind(this)}
                     onToggleNav={this.onToggleNav.bind(this)}
-                    onToggleFullScreen={this.onToggleFullScreen.bind(this)}>
+                    onToggleFullScreen={this.onToggleFullScreen.bind(this)}
+                    post={post}
+                    onSave={this.props.actions.savePost}>
                     {post.markdown}
                 </Editor>
                 <Preview

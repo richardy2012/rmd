@@ -35,6 +35,7 @@ $ npm start
 
 - [ ] 改进同步滚动
 - [ ] FontAwesome 图标
+- [x] 图片上传
 - [x] Emoji支持
 - [x] 全屏编辑
 - [ ] 更换主题风格

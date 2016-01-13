@@ -26,6 +26,7 @@ module.exports = function (){
     router.post('/authenticate/revoke', api.http(api.authenticate.revoke));
 
     router.post('/upload', api.http(api.upload.index));
+    router.post('/upload/base64', api.http(api.upload.base64));
 
     return router;
 };

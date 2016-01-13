@@ -27,3 +27,6 @@ export const savePost = createAction('save post', (post) => {
         });
     }
 });
+export const addMedia = createAction('add media', (img) => {
+
+});

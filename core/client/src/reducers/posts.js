@@ -1,4 +1,6 @@
 
+"use strict";
+
 import {handleActions} from 'redux-actions';
 import uuid from 'node-uuid';
 import _ from 'lodash';

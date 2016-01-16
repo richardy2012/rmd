@@ -31,13 +31,12 @@ export default class Toolbar extends React.Component {
         event.stopPropagation();
     }
 
-    onCloseMenu(event){
-        const target = event.target;
+    onCloseMenu(){
         this.setState({isShowMenu: false});
     }
 
     onSave() {
-        // TODO
+        this.props.onSavePosts(this.props.posts);
         this.setState({isShowMenu: false});
     }
 

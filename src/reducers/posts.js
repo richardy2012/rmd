@@ -24,6 +24,9 @@ export default handleActions({
             return post.id === action.payload.id ? action.payload : post;
         });
     },
+    'save post' (state, action){
+        return action.payload;
+    },
     'delete post'(state, action){
         return state.filter((post) => {
             return post.id !== action.payload

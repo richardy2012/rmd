@@ -70,14 +70,18 @@ export default class App extends React.Component {
                     onScroll={this.syncPreviewScroll.bind(this)}
                     onChange={this.onChange.bind(this)}
                     onToggleNav={this.onToggleNav.bind(this)}
-                    onToggleFullScreen={this.onToggleFullScreen.bind(this)}>
+                    onToggleFullScreen={this.onToggleFullScreen.bind(this)}
+                    posts={this.props.posts}
+                    onSavePosts={this.props.actions.savePosts}>
                     {post.markdown}
                 </Editor>
                 <Preview
                     ref="preview"
                     isFullScreen={this.state.isFullScreen}
                     onTitleChange={this.onChange.bind(this)}
-                    title={post.title}>
+                    title={post.title}
+                    posts={this.props.posts}
+                    onSavePosts={this.props.actions.savePosts}>
                     {post.markdown}
                 </Preview>
             </div>

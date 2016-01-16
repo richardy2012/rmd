@@ -52,7 +52,7 @@ export default class Editor extends React.Component {
                 sender: 'editor|cli'
             },
             exec: (env, args, request) => {
-
+                this.props.onSavePosts(this.props.posts);
             }
         });
 

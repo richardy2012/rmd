@@ -8,6 +8,7 @@ RMD 是一个开源的、使用 React 构建的 Markdown 编辑器。
 - 完整的Markdown语法支持
 - 即时预览
 - 代码语法高亮
+- Emoji 支持
 - LaTeX 公式支持
 - 流程图、时序图支持
 - TODO List 支持

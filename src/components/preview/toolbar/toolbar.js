@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import $ from 'jquery';
 import Icon from 'react-fa';
 import Dropdown from '../dropdown/dropdown';
@@ -23,7 +24,10 @@ export default class Toolbar extends React.Component {
     };
 
     onTitleChange(event) {
-        this.props.onTitleChange(event.target.value);
+        const {posts, onEditPost} = this.props;
+        let post = _.cloneDeep(_.find(posts, {selected: true}) || posts[0]);
+        post.title = event.target.value;
+        onEditPost(post);
     }
 
     onToggleMenu(event) {
@@ -97,7 +101,6 @@ export default class Toolbar extends React.Component {
     }
 
     render() {
-
         return (
             <div className={style.toolbar}>
                 <div className={style.group}>

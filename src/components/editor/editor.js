@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import $ from 'jquery';
 import Modal from './modal/modal';
 import brace from 'brace';
@@ -60,7 +61,10 @@ export default class Editor extends React.Component {
     }
 
     onChange(markdown) {
-        this.props.onChange({markdown: markdown});
+        const {posts, onEditPost} = this.props;
+        let post = _.cloneDeep(_.find(posts, {selected: true}) || posts[0]);
+        post.markdown = markdown;
+        onEditPost(post);
     }
 
     onBold() {
@@ -177,11 +181,11 @@ export default class Editor extends React.Component {
     }
 
     render() {
-
+        const {isFullScreen, onToggleNav, onToggleFullScreen, children} = this.props;
         return (
             <div className={style.editor}>
-                <Toolbar isFullScreen={this.props.isFullScreen} >
-                    <ToolbarItem icon="bars" onClick={this.props.onToggleNav}/>
+                <Toolbar isFullScreen={isFullScreen} >
+                    <ToolbarItem icon="bars" onClick={onToggleNav}/>
                     <ToolbarItem icon="bold" onClick={this.onBold.bind(this)}/>
                     <ToolbarItem icon="italic" onClick={this.onItalic.bind(this)}/>
                     <ToolbarItem icon="link" onClick={this.onLink.bind(this)}/>
@@ -189,7 +193,7 @@ export default class Editor extends React.Component {
                     <ToolbarItem icon="list" onClick={this.onList.bind(this)}/>
                     <ToolbarItem icon="list-ol" onClick={this.onOrderList.bind(this)}/>
                     <ToolbarItem icon="table" onClick={this.onTable.bind(this)}/>
-                    <ToolbarItem icon={this.props.isFullScreen ? 'compress' : 'expand'} align="right" onClick={this.props.onToggleFullScreen}/>
+                    <ToolbarItem icon={isFullScreen ? 'compress' : 'expand'} align="right" onClick={onToggleFullScreen}/>
                 </Toolbar>
                 <div className={style.wrapper} ref="editorWrapper">
                     <AceEditor
@@ -202,7 +206,7 @@ export default class Editor extends React.Component {
                         showGutter={false}
                         highlightActiveLine={false}
                         showPrintMargin={false}
-                        value={this.props.children}
+                        value={children}
                         onChange={this.onChange.bind(this)}
                         onLoad={this.onLoad.bind(this)}
                         editorProps={{ $blockScrolling: true, animatedScroll: true}}

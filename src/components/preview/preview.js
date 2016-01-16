@@ -36,18 +36,19 @@ export default class Preview extends React.Component {
     }
 
     render() {
-        const html = parser(this.props.children.toString());
-        const clazz = this.props.isFullScreen ? style['preview-full-screen'] : style['preview'];
+        const {isFullScreen, posts, children, onEditPost, onSavePosts, onAddPost} = this.props;
+        const html = parser(children.toString());
+        const clazz = isFullScreen ? style['preview-full-screen'] : style['preview'];
 
         return (
             <div className={clazz}>
                 <Toolbar
                     markdown={this.props.children}
-                    onTitleChange={this.onTitleChange.bind(this)}
                     title={this.props.title}
-                    posts={this.props.posts}
-                    onSavePosts={this.props.onSavePosts}
-                    onAddPost={this.props.onAddPost}
+                    posts={posts}
+                    onEditPost={onEditPost}
+                    onSavePosts={onSavePosts}
+                    onAddPost={onAddPost}
                     html={html}/>
                 <div
                     className={`${style['preview-content']} markdown-body`}

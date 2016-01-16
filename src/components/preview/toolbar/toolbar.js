@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import $ from 'jquery';
 import Icon from 'react-fa';
+import loading from './loading.gif';
 import Dropdown from '../dropdown/dropdown';
 import Item from '../dropdown/dropdown_item';
 import style from './toolbar.less';
@@ -20,7 +21,8 @@ export default class Toolbar extends React.Component {
     };
 
     state = {
-        isShowMenu: false
+        isShowMenu: false,
+        isShowSpinner: false
     };
 
     onTitleChange(event) {
@@ -47,6 +49,11 @@ export default class Toolbar extends React.Component {
     onSave() {
         this.props.onSavePosts(this.props.posts);
         this.setState({isShowMenu: false});
+
+        this.setState({isShowSpinner: true});
+        setTimeout(() => {
+            this.setState({isShowSpinner: false});
+        }, 500);
     }
 
     exportFile(content, filename){
@@ -115,6 +122,11 @@ export default class Toolbar extends React.Component {
                         <Item icon="download" onClick={this.onExportPDF.bind(this)}>导出PDF</Item>
                         <Item icon="github" href="https://github.com/progrape/rmd">关于</Item>
                     </Dropdown>
+                </div>
+                <div className={style.group} style={{display: this.state.isShowSpinner ? 'block' : 'none'}}>
+                    <a href="javascript:;" className={style.item}>
+                        <img src={loading} className={style['loading']} alt=""/>
+                    </a>
                 </div>
                 <div className={style.title}>
                     <input type="text" className={style.input} onChange={this.onTitleChange.bind(this)}

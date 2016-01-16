@@ -25,6 +25,7 @@ module.exports = {
     entry: {
         js: './app.js',
         html: './index.html',
+        favicon: './favicon.ico',
         vendor: ['react', 'react-ace', 'brace', 'react-dom', 'jquery', 'react-redux', 'redux-thunk', 'redux-promise', 'redux-logger', 'marked', 'highlight.js']
     },
     output: {
@@ -34,7 +35,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.html$/,
+                test: /\.(html|ico)/,
                 loader: 'file?name=[name].[ext]'
             },
             {

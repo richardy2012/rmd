@@ -1,12 +1,12 @@
 
 import {handleActions} from 'redux-actions';
 import uuid from 'node-uuid';
-import markdown from './markdown.txt';
+import readme from './readme.txt';
 
 const initialState = JSON.parse(localStorage.getItem('posts')) || [{
         id: uuid.v4(),
         title: ``,
-        markdown: markdown,
+        markdown: readme,
         html: ``
     }];
 

@@ -1,13 +1,11 @@
-
 @navWidth: 200px;
 
 .nav {
     width: 0;
     height: 100%;
     overflow: hidden;
-    background-color: #373D49;
+    background-color: #2e3238;
     transition: all .2s ease;
-    border-right: 1px solid #4E4E4E;
 }
 
 .nav-show {
@@ -16,12 +14,52 @@
 }
 
 .hd {
-
+    border-bottom: 1px solid #292C33;
 }
 
-.title{
+.name {
     font-weight: normal;
     color: #888;
     text-align: center;
     padding: 20px 0;
+}
+
+.bd {
+
+}
+
+.list {
+    list-style: none;
+}
+
+.item {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #292C33;
+    cursor: pointer;
+}
+
+.item-active{
+    composes: item;
+    background-color: #3A3F45;
+}
+
+.cover {
+    margin-right: 1em;
+}
+.img {
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+
+.info {
+    flex: 1;
+}
+
+.title {
+    font-weight: normal;
+    color: #888;
+    font-size: 16px;
 }

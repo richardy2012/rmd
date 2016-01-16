@@ -63,7 +63,11 @@ export default class App extends React.Component {
 
         return (
             <div className={style.container}>
-                <Nav show={this.state.showNav}/>
+                <Nav
+                    show={this.state.showNav}
+                    post={post}
+                    posts={this.props.posts}
+                />
                 <Editor
                     ref="editor"
                     isFullScreen={this.state.isFullScreen}

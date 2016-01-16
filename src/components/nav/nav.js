@@ -21,7 +21,7 @@ export default class Nav extends React.Component {
                                 return (
                                     <li key={idx} className={clazz}>
                                         <div className={style['info']}>
-                                            <h3 className={style['title']}>{item.title}</h3>
+                                            <h3 className={style['title']}>{item.title || `untitled`}</h3>
                                         </div>
                                         <div className={style['cover']}>
                                             <img src={cover} alt="" className={style['img']}/>

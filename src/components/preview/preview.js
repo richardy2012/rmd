@@ -47,6 +47,7 @@ export default class Preview extends React.Component {
                     title={this.props.title}
                     posts={this.props.posts}
                     onSavePosts={this.props.onSavePosts}
+                    onAddPost={this.props.onAddPost}
                     html={html}/>
                 <div
                     className={`${style['preview-content']} markdown-body`}

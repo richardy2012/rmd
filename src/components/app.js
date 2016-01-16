@@ -59,7 +59,8 @@ export default class App extends React.Component {
     }
 
     render() {
-        const post = this.props.posts[0];
+        const {posts} = this.props;
+        const post = _.find(this.props.posts, {selected: true}) || this.props.posts[0];
 
         return (
             <div className={style.container}>
@@ -67,6 +68,7 @@ export default class App extends React.Component {
                     show={this.state.showNav}
                     post={post}
                     posts={this.props.posts}
+                    onSelectPost={this.props.actions.selectPost}
                 />
                 <Editor
                     ref="editor"
@@ -85,7 +87,8 @@ export default class App extends React.Component {
                     onTitleChange={this.onChange.bind(this)}
                     title={post.title}
                     posts={this.props.posts}
-                    onSavePosts={this.props.actions.savePosts}>
+                    onSavePosts={this.props.actions.savePosts}
+                    onAddPost={this.props.actions.addPost}>
                     {post.markdown}
                 </Preview>
             </div>

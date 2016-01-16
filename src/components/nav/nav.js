@@ -3,9 +3,21 @@ import cover from './default.jpg';
 import style from './nav.less';
 
 export default class Nav extends React.Component {
+    static propTypes = {
+        onSelectPost: React.PropTypes.func
+    };
+
+    static defaultProps = {
+        onSelectPost: () => {}
+    };
+
+    onSelectPost(id) {
+        const {onSelectPost} = this.props;
+        onSelectPost(id);
+    }
 
     render() {
-        const {show, post, posts} = this.props;
+        const {show, post, posts, onSelectPost} = this.props;
         const clazz = show ? style['nav-show'] : style['nav'];
 
         return (
@@ -19,7 +31,7 @@ export default class Nav extends React.Component {
                             posts.map((item, idx) => {
                                 const clazz = item.id === post.id ? style['item-active'] : style['item'];
                                 return (
-                                    <li key={idx} className={clazz}>
+                                    <li key={idx} className={clazz} onClick={onSelectPost.bind(this, item.id)}>
                                         <div className={style['info']}>
                                             <h3 className={style['title']}>{item.title || `untitled`}</h3>
                                         </div>

@@ -35,6 +35,11 @@ export default class Toolbar extends React.Component {
         this.setState({isShowMenu: false});
     }
 
+    onNew(){
+        this.props.onAddPost();
+        this.setState({isShowMenu: false});
+    }
+
     onSave() {
         this.props.onSavePosts(this.props.posts);
         this.setState({isShowMenu: false});
@@ -100,6 +105,7 @@ export default class Toolbar extends React.Component {
                         <Icon name="cog"/>
                     </a>
                     <Dropdown show={this.state.isShowMenu}>
+                        <Item icon="file" onClick={this.onNew.bind(this)}>新建</Item>
                         <Item icon="refresh" onClick={this.onSave.bind(this)}>保存</Item>
                         <Item icon="download" onClick={this.onExportMarkdown.bind(this)}>导出Markdown</Item>
                         <Item icon="download" onClick={this.onExportHTML.bind(this)}>导出HTML</Item>

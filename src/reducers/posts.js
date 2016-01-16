@@ -7,7 +7,8 @@ const initialState = JSON.parse(localStorage.getItem('posts')) || [{
         id: uuid.v4(),
         title: ``,
         markdown: readme,
-        html: ``
+        html: ``,
+        selected: true
     }];
 
 export default handleActions({
@@ -18,6 +19,12 @@ export default handleActions({
             markdown: ``,
             html: ``
         }];
+    },
+    'select post' (state, action) {
+        return state.map((post) => {
+            post.selected = post.id === action.payload;
+            return post;
+        });
     },
     'edit post'(state, action){
         return state.map((post) => {

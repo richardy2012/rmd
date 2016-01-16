@@ -26,8 +26,14 @@ export default class Toolbar extends React.Component {
         this.props.onTitleChange(event.target.value);
     }
 
-    onToggleMenu() {
+    onToggleMenu(event) {
         this.setState({isShowMenu: !this.state.isShowMenu});
+        event.stopPropagation();
+    }
+
+    onCloseMenu(event){
+        const target = event.target;
+        this.setState({isShowMenu: false});
     }
 
     onSave() {
@@ -76,6 +82,14 @@ export default class Toolbar extends React.Component {
     onExportPDF() {
         // TODO
         this.setState({isShowMenu: false});
+    }
+
+    componentDidMount(){
+        $(window).bind('click', this.onCloseMenu.bind(this));
+    }
+
+    componentWillUnmount(){
+        $(window).unbind('click', this.onCloseMenu.bind(this));
     }
 
     render() {

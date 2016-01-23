@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import Icon from 'react-fa';
+import loading from './loading.gif';
 import Dropdown from '../dropdown/dropdown';
 import Item from '../dropdown/dropdown_item';
 import style from './toolbar.less';
@@ -19,21 +20,39 @@ export default class Toolbar extends React.Component {
     };
 
     state = {
-        isShowMenu: false
+        isShowMenu: false,
+        isShowSpinner: false
     };
 
     onTitleChange(event) {
-        this.props.onTitleChange(event.target.value);
+        const {posts, onEditPost} = this.props;
+        let post = _.cloneDeep(_.find(posts, {selected: true}) || posts[0]);
+        post.title = event.target.value;
+        onEditPost(post);
     }
 
-    onToggleMenu() {
+    onToggleMenu(event) {
         this.setState({isShowMenu: !this.state.isShowMenu});
+        event.stopPropagation();
+    }
+
+    onCloseMenu(){
+        this.setState({isShowMenu: false});
+    }
+
+    onNew(){
+        this.props.onAddPost();
+        this.setState({isShowMenu: false});
     }
 
     onSave() {
-        // TODO
-        this.props.onSave(this.props.post);
+        this.props.onSavePosts(this.props.posts);
         this.setState({isShowMenu: false});
+
+        this.setState({isShowSpinner: true});
+        setTimeout(() => {
+            this.setState({isShowSpinner: false});
+        }, 500);
     }
 
     exportFile(content, filename){
@@ -90,6 +109,14 @@ export default class Toolbar extends React.Component {
         }
     }
 
+    componentDidMount(){
+        $(window).bind('click', this.onCloseMenu.bind(this));
+    }
+
+    componentWillUnmount(){
+        $(window).unbind('click', this.onCloseMenu.bind(this));
+    }
+
     render() {
 
         return (
@@ -99,12 +126,18 @@ export default class Toolbar extends React.Component {
                         <Icon name="cog"/>
                     </a>
                     <Dropdown show={this.state.isShowMenu}>
+                        <Item icon="file" onClick={this.onNew.bind(this)}>新建</Item>
                         <Item icon="refresh" onClick={this.onSave.bind(this)}>保存</Item>
                         <Item icon="download" onClick={this.onExportMarkdown.bind(this)}>导出Markdown</Item>
                         <Item icon="download" onClick={this.onExportHTML.bind(this)}>导出HTML</Item>
                         <Item icon="download" onClick={this.onExportPDF.bind(this)}>导出PDF</Item>
                         <Item icon="github" href="https://github.com/progrape/rmd">关于</Item>
                     </Dropdown>
+                </div>
+                <div className={style.group} style={{display: this.state.isShowSpinner ? 'block' : 'none'}}>
+                    <a href="javascript:;" className={style.item}>
+                        <img src={loading} className={style['loading']} alt=""/>
+                    </a>
                 </div>
                 {
                     this._renderAvatar()

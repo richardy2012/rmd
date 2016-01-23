@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import $ from 'jquery';
 import Modal from './modal/modal';
 import brace from 'brace';
@@ -52,8 +53,7 @@ export default class Editor extends React.Component {
                 sender: 'editor|cli'
             },
             exec: (env, args, request) => {
-                const post = this.props.post;
-                this.props.onSave(post);
+                this.props.onSavePosts(this.props.posts);
             }
         });
 
@@ -61,7 +61,10 @@ export default class Editor extends React.Component {
     }
 
     onChange(markdown) {
-        this.props.onChange({markdown: markdown});
+        const {posts, onEditPost} = this.props;
+        let post = _.cloneDeep(_.find(posts, {selected: true}) || posts[0]);
+        post.markdown = markdown;
+        onEditPost(post);
     }
 
     onBold() {
@@ -170,51 +173,19 @@ export default class Editor extends React.Component {
             };
         })($);
 
-        function dataURItoBlob(dataURI) {
-            // convert base64/URLEncoded data component to raw binary data held in a string
-            var byteString;
-            if (dataURI.split(',')[0].indexOf('base64') >= 0)
-                byteString = atob(dataURI.split(',')[1]);
-            else
-                byteString = unescape(dataURI.split(',')[1]);
-
-            // separate out the mime component
-            var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-
-            // write the bytes of the string to a typed array
-            var ia = new Uint8Array(byteString.length);
-            for (var i = 0; i < byteString.length; i++) {
-                ia[i] = byteString.charCodeAt(i);
-            }
-
-            return new Blob([ia], {type:mimeString});
-        }
-
         $('html').pasteImageReader((results) => {
             const dataURL = results.dataURL;
             const editor = this.state.editor;
-
-            var blob = dataURItoBlob(dataURL);
-            var fd = new FormData();
-            fd.append('file', blob);
-            $.ajax({
-                url: '/api/v1/upload',
-                type: 'POST',
-                data: fd,
-                processData: false,
-                contentType: false
-            }).then((res) => {
-                editor.insert(`![image](${res.data})`);
-            });
+            editor.insert(`![image](${dataURL})`);
         });
     }
 
     render() {
-
+        const {isFullScreen, onToggleNav, onToggleFullScreen, children} = this.props;
         return (
             <div className={style.editor}>
-                <Toolbar isFullScreen={this.props.isFullScreen} >
-                    <ToolbarItem icon="bars" onClick={this.props.onToggleNav}/>
+                <Toolbar isFullScreen={isFullScreen} >
+                    <ToolbarItem icon="bars" onClick={onToggleNav}/>
                     <ToolbarItem icon="bold" onClick={this.onBold.bind(this)}/>
                     <ToolbarItem icon="italic" onClick={this.onItalic.bind(this)}/>
                     <ToolbarItem icon="link" onClick={this.onLink.bind(this)}/>
@@ -222,7 +193,7 @@ export default class Editor extends React.Component {
                     <ToolbarItem icon="list" onClick={this.onList.bind(this)}/>
                     <ToolbarItem icon="list-ol" onClick={this.onOrderList.bind(this)}/>
                     <ToolbarItem icon="table" onClick={this.onTable.bind(this)}/>
-                    <ToolbarItem icon={this.props.isFullScreen ? 'compress' : 'expand'} align="right" onClick={this.props.onToggleFullScreen}/>
+                    <ToolbarItem icon={isFullScreen ? 'compress' : 'expand'} align="right" onClick={onToggleFullScreen}/>
                 </Toolbar>
                 <div className={style.wrapper} ref="editorWrapper">
                     <AceEditor
@@ -235,7 +206,7 @@ export default class Editor extends React.Component {
                         showGutter={false}
                         highlightActiveLine={false}
                         showPrintMargin={false}
-                        value={this.props.children}
+                        value={children}
                         onChange={this.onChange.bind(this)}
                         onLoad={this.onLoad.bind(this)}
                         editorProps={{ $blockScrolling: true, animatedScroll: true}}

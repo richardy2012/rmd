@@ -6,10 +6,7 @@ import * as actions from '../actions/index';
 import App from '../components/app';
 
 function mapStateToProps(state) {
-    return {
-        posts: state.posts,
-        user: state.user
-    };
+    return state;
 }
 
 function mapDispatchToProps(dispatch) {

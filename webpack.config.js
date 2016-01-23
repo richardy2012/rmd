@@ -24,7 +24,7 @@ module.exports = {
     context: path.join(__dirname, './core/client/src'),
     entry: {
         js: './app.js',
-        html: './editor.html',
+        html: './index.html',
         vendor: ['react', 'react-ace', 'brace', 'react-dom', 'jquery', 'react-redux', 'redux-thunk', 'redux-promise', 'redux-logger', 'marked', 'highlight.js']
     },
     output: {

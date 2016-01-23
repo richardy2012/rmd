@@ -6,6 +6,7 @@ var api = require('../api');
 
 module.exports = function (){
 
+    router.get('/user/me', api.http(api.user.me));
     //router.get('/user', api.http(api.user.browse));
     //router.get('/user/:id', api.http(api.user.read));
     //router.post('/user', api.http(api.user.add));

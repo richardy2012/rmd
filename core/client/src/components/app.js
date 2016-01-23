@@ -9,7 +9,7 @@ import style from './app.less';
 export default class App extends React.Component {
 
     state = {
-        showNav: true,
+        showNav: false,
         isFullScreen: false
     };
 
@@ -25,11 +25,6 @@ export default class App extends React.Component {
         const session = $editor.getSession();
 
         session.setScrollTop(scroll);
-    };
-
-    onChange(obj) {
-        const post = this.props.posts[0];
-        this.props.actions.editPost($.extend({}, post, obj));
     }
 
     onToggleNav() {
@@ -56,37 +51,46 @@ export default class App extends React.Component {
             $preview.on('scroll', this.syncEditorScroll.bind(this));
         });
 
-        $.get(`/api/v1/post`).then((res) => {
-            this.props.actions.initPost(res.data);
+        // fetch data
+        const {setUser} = this.props.actions;
+        $.getJSON(`/api/v1/user/me`).then((res) => {
+            setUser(res.data);
         });
     }
 
     render() {
-        const post = this.props.posts[0];
-        const user = this.props.user;
+        const {posts, user, actions} = this.props;
+        const {setUser, addPost, editPost, selectPost, savePosts} = actions;
+        const post = _.find(this.props.posts, {selected: true}) || this.props.posts[0];
 
         return (
             <div className={style.container}>
-                <Nav show={this.state.showNav} posts={this.props.posts} />
+                <Nav
+                    show={this.state.showNav}
+                    post={post}
+                    posts={posts}
+                    onSelectPost={selectPost}
+                />
                 <Editor
                     ref="editor"
                     isFullScreen={this.state.isFullScreen}
                     onScroll={this.syncPreviewScroll.bind(this)}
-                    onChange={this.onChange.bind(this)}
                     onToggleNav={this.onToggleNav.bind(this)}
                     onToggleFullScreen={this.onToggleFullScreen.bind(this)}
-                    post={post}
-                    onSave={this.props.actions.savePost}>
+                    posts={posts}
+                    onEditPost={editPost}
+                    onSavePosts={savePosts}>
                     {post.markdown}
                 </Editor>
                 <Preview
                     ref="preview"
                     isFullScreen={this.state.isFullScreen}
-                    onTitleChange={this.onChange.bind(this)}
-                    onSave={this.props.actions.savePost}
                     title={post.title}
-                    post={post}
-                    user={user}>
+                    posts={posts}
+                    user={user}
+                    onSavePosts={savePosts}
+                    onEditPost={editPost}
+                    onAddPost={addPost}>
                     {post.markdown}
                 </Preview>
             </div>

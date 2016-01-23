@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import $ from 'jquery';
 import Icon from 'react-fa';
 import loading from './loading.gif';
@@ -118,7 +119,6 @@ export default class Toolbar extends React.Component {
     }
 
     render() {
-
         return (
             <div className={style.toolbar}>
                 <div className={style.group}>

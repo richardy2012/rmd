@@ -32,6 +32,12 @@ module.exports = {
             return {ret: 0, msg: 'ok', data: data};
         };
     },
+    me: function(object, options){
+        return function *() {
+            var user = this.state.user;
+            return {ret: 0, msg: 'ok', data: user};
+        };
+    },
     destroy: function (options){
         return function *() {
             var id = options.id;

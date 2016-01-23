@@ -1,6 +1,7 @@
 
 import {handleActions} from 'redux-actions';
 import uuid from 'node-uuid';
+import _ from 'lodash';
 import readme from './readme.txt';
 
 const initialState = JSON.parse(localStorage.getItem('posts')) || [{
@@ -12,6 +13,9 @@ const initialState = JSON.parse(localStorage.getItem('posts')) || [{
     }];
 
 export default handleActions({
+    'set post' (state, action) {
+        return _.isEmpty(action.payload) ? _.cloneDeep(state) : action.payload;
+    },
     'add post' (state, action) {
         return [...state, {
             id: uuid.v4(),

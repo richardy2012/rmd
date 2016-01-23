@@ -52,15 +52,18 @@ export default class App extends React.Component {
         });
 
         // fetch data
-        const {setUser} = this.props.actions;
+        const {setUser, setPost} = this.props.actions;
         $.getJSON(`/api/v1/user/me`).then((res) => {
             setUser(res.data);
+        });
+        $.getJSON(`/api/v1/post`).then((res) => {
+            setPost(res.data);
         });
     }
 
     render() {
         const {posts, user, actions} = this.props;
-        const {setUser, addPost, editPost, selectPost, savePosts} = actions;
+        const {addPost, editPost, selectPost, savePosts} = actions;
         const post = _.find(this.props.posts, {selected: true}) || this.props.posts[0];
 
         return (

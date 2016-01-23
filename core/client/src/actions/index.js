@@ -1,5 +1,6 @@
 
 import _ from 'lodash';
+import $ from 'jquery';
 import { createAction } from 'redux-actions';
 
 export const setUser = createAction('set user');

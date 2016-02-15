@@ -50,6 +50,30 @@ module.exports = {
             return {ret: 0, msg: 'ok', data: data[0]};
         };
     },
+    addOrEdit: function (object, options) {
+        return function *() {
+            var id = options.id;
+            var user = this.state.user;
+
+            // 存不存在
+            var post = yield model.collections.post.findOne().where({id: id});
+            if (!post) {
+                object.owner = user.id;
+                post = yield model.collections.post.create(object);
+                return {ret: 0, msg: 'ok', data: post};
+            }
+            else {
+                // 看看是不是属于你的
+                if (post.owner != user.id) {
+                    return {ret: 403, msg: 'forbidden', data: null};
+                }
+                object.owner = user.id;
+                var data = yield model.collections.post.update({id: id}, object);
+
+                return {ret: 0, msg: 'ok', data: data[0]};
+            }
+        };
+    },
     destroy: function (options) {
         return function *() {
             var id = options.id;

@@ -16,7 +16,7 @@ module.exports = function (){
     router.get('/post', api.http(api.post.browse));
     router.get('/post/:id', api.http(api.post.read));
     router.post('/post', api.http(api.post.add));
-    router.put('/post/:id', api.http(api.post.edit));
+    router.post('/post/:id', api.http(api.post.addOrEdit));
     router.delete('/post/:id', api.http(api.post.destroy));
 
     router.get('/media', api.http(api.media.browse));

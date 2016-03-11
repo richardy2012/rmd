@@ -1,13 +1,13 @@
 "use strict";
 
-var _ = require('lodash');
-var passport = require('koa-passport');
-var GitHubStrategy = require('passport-github').Strategy;
-var api = require('../api');
-var config = require('config');
-var jwt = require('jsonwebtoken');
-var moment = require('moment');
-var model = require('../model').waterline;
+const _ = require('lodash');
+const passport = require('koa-passport');
+const GitHubStrategy = require('passport-github').Strategy;
+const api = require('../api');
+const config = require('config');
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
+const model = require('../model').waterline;
 
 passport.use(new GitHubStrategy({
         clientID: config.get('passport.github.clientID'),
@@ -25,10 +25,10 @@ module.exports = {
             yield passport.authenticate('github');
         },
         callback: function *() {
-            var ctx = this;
+            const ctx = this;
             yield passport.authenticate('github', function *(err, profile, info, status) {
-                var json = profile._json;
-                var res = yield api.user.read({githubId: profile.id});
+                const json = profile._json;
+                let res = yield api.user.read({githubId: profile.id});
                 if (_.isEmpty(res.data)) {
                     res = yield api.user.add({
                         githubId: profile.id,
@@ -39,12 +39,12 @@ module.exports = {
                 }
 
                 // set cookie
-                var user = res.data;
-                var expires = moment().add(30, 'days').valueOf();
-                var access_token = jwt.sign({iss: user.id, expires: expires}, config.get('token.cert'));
+                const user = res.data;
+                const expires = moment().add(30, 'days').valueOf();
+                const access_token = jwt.sign({iss: user.id, expires: expires}, config.get('token.cert'));
 
                 // save token to db
-                var data = yield model.collections.token.create({access_token: access_token, expires: expires});
+                const data = yield model.collections.token.create({access_token: access_token, expires: expires});
                 ctx.cookies.set('authorization', access_token);
 
                 ctx.redirect('/');

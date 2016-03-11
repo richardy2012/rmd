@@ -1,14 +1,14 @@
 
 "use strict";
 
-var _ = require('lodash');
-var router = require('koa-router');
+const _ = require('lodash');
+const router = require('koa-router');
 
 function http(method) {
     return function *() {
         try {
-            var object = this.request.body;
-            var options = _.extend({}, this.query, this.params);
+            let object = this.request.body;
+            let options = _.extend({}, this.query, this.params);
             if (_.isEmpty(object)) {
                 object = options;
                 options = {};

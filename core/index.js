@@ -1,8 +1,7 @@
 
 "use strict";
 
-
-var Server = require('./server');
+const Server = require('./server');
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 function make(options){
     options = options || {};

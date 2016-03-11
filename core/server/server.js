@@ -1,14 +1,14 @@
 
 "use strict";
 
-var config = require('config');
+const config = require('config');
 
 class Server{
     constructor (rootApp){
         this.rootApp = rootApp;
     }
     start(externalApp){
-        var root = externalApp ? externalApp : this.rootApp;
+        const root = externalApp ? externalApp : this.rootApp;
         root.on('error', (err) => {
             console.log(err);
         });

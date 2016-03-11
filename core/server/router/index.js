@@ -1,9 +1,9 @@
 
 "use strict";
 
-var api = require('./api');
-var front = require('./front');
-var auth = require('./auth');
+const api = require('./api');
+const front = require('./front');
+const auth = require('./auth');
 
 module.exports = {
     apiBaseUrl: '/api/v1',

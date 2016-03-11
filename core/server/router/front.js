@@ -1,8 +1,8 @@
 
 "use strict";
 
-var router = require('koa-router')();
-var front = require('../controller/front');
+const router = require('koa-router')();
+const front = require('../controller/front');
 
 module.exports = function (){
     router.get('/', front.index);

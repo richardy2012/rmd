@@ -1,12 +1,12 @@
 
 "use strict";
 
-var _ = require('lodash');
-var config = require('config');
-var jwt = require('jsonwebtoken');
-var moment = require('moment');
-var api = require('../api');
-var model = require('../model').waterline;
+const _ = require('lodash');
+const config = require('config');
+const jwt = require('jsonwebtoken');
+const moment = require('moment');
+const api = require('../api');
+const model = require('../model').waterline;
 
 module.exports = function (){
     return function *(next){
@@ -16,7 +16,7 @@ module.exports = function (){
             return;
         }
 
-        var authorization = this.request.header['authorization'] || this.cookies.get('authorization') || this.query.access_token;
+        const authorization = this.request.header['authorization'] || this.cookies.get('authorization') || this.query.access_token;
         // 如果token为空
         if (_.isEmpty(authorization)) {
             this.body = {ret: 403, msg: 'invalid access token'};
@@ -24,7 +24,7 @@ module.exports = function (){
         }
 
         // 查找token
-        var token = yield model.collections.token.findOne({access_token: authorization});
+        const token = yield model.collections.token.findOne({access_token: authorization});
         if (_.isEmpty(token)) {
             this.body = {ret: 403, msg: 'invalid access token'};
             return;
@@ -36,14 +36,14 @@ module.exports = function (){
             return;
         }
 
-        var decoded = jwt.verify(authorization, config.get('token.cert'));
-        var res = yield api.user.read({id: decoded.iss});
+        const decoded = jwt.verify(authorization, config.get('token.cert'));
+        const res = yield api.user.read({id: decoded.iss});
         if (_.isEmpty(res.data)) {
             this.body = {ret: 403, msg: 'invalid access token'};
             return;
         }
 
-        var user = res.data;
+        let user = res.data;
         delete user.password;
         this.state.user = user;
 

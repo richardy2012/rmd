@@ -1,14 +1,14 @@
 
 "use strict";
 
-var path = require('path');
-var _ = require('lodash');
-var moment = require('moment');
-var jwt = require('jsonwebtoken');
-var config = require('config');
-var api = require('../api');
-var views = require('co-views');
-var render = views(config.get('front.template'), { map: { html: 'ejs' } });
+const path = require('path');
+const _ = require('lodash');
+const moment = require('moment');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const api = require('../api');
+const views = require('co-views');
+const render = views(config.get('front.template'), { map: { html: 'ejs' } });
 
 function * getUser(authorization){
     // 如果token为空
@@ -17,7 +17,7 @@ function * getUser(authorization){
     }
 
     // 查找token
-    var res = yield api.token.read({access_token: authorization});
+    let res = yield api.token.read({access_token: authorization});
     if (_.isEmpty(res.data)) {
         return null;
     }
@@ -27,21 +27,21 @@ function * getUser(authorization){
         return null;
     }
 
-    var decoded = jwt.verify(authorization, config.get('token.cert'));
+    const decoded = jwt.verify(authorization, config.get('token.cert'));
     res = yield api.user.read({id: decoded.iss});
     if (_.isEmpty(res.data)) {
         return null;
     }
 
-    var user = res.data;
+    const user = res.data;
     delete user.password;
     return user;
 }
 
 module.exports = {
     index: function *() {
-        var authorization = this.cookies.get('authorization');
-        var user = yield getUser(authorization);
+        const authorization = this.cookies.get('authorization');
+        const user = yield getUser(authorization);
 
         try {
             this.body = yield render('editor', {

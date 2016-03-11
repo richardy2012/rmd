@@ -1,8 +1,8 @@
 
 "use strict";
 
-var router = require('koa-router')();
-var api = require('../api');
+const router = require('koa-router')();
+const api = require('../api');
 
 module.exports = function (){
 

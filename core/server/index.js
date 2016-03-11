@@ -1,13 +1,13 @@
 
 "use strict";
 
-var koa = require('koa');
-var middleware = require('./middleware');
-var Server = require('./server');
-var model = require('./model');
+const koa = require('koa');
+const middleware = require('./middleware');
+const Server = require('./server');
+const model = require('./model');
 
 function init(options) {
-    var frontApp = koa();
+    const frontApp = koa();
 
     // load middleware
     middleware(frontApp);

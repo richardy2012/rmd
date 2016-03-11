@@ -1,8 +1,8 @@
 
 "use strict";
 
-var router = require('koa-router')();
-var auth = require('../controller/auth');
+const router = require('koa-router')();
+const auth = require('../controller/auth');
 
 module.exports = function (){
 

@@ -11,20 +11,6 @@ module.exports = {
         assets: path.join(__dirname, '../core/client/dist'),
         template: path.join(__dirname, '../core/client/dist')
     },
-    engine: 'disk',
-    database: {
-        adapters: {
-            disk: require('sails-disk')
-        },
-        connections: {
-            disk: {
-                adapter: 'disk'
-            }
-        },
-        defaults: {
-            migrate: 'alter'
-        }
-    },
     token: {
         expires: 30
     },

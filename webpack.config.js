@@ -17,7 +17,7 @@ if(process.env.NODE_ENV === 'production'){
     }));
 }
 else{
-    plugins.push(new OpenBrowserPlugin({ url: 'http://localhost:8080' }));
+    plugins.push(new OpenBrowserPlugin({ url: 'http://localhost:300' }));
 }
 
 module.exports = {

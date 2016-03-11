@@ -8,7 +8,7 @@ module.exports = {
             index: true
         },
         expires: {
-            type: 'integer'
+            type: 'string'
         }
     }
 };

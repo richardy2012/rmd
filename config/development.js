@@ -1,27 +1,19 @@
 
 "use strict";
 
-var path = require('path');
-var mysql = require('sails-mysql');
-
 module.exports = {
-    engine: 'mysql',
+    engine: 'disk',
     database: {
         adapters: {
-            mysql: mysql
+            disk: require('sails-disk')
         },
         connections: {
-            mysql: {
-                adapter: 'mysql',
-                host: '127.0.0.1',
-                port: 3306,
-                database: 'rmd'
+            disk: {
+                adapter: 'disk'
             }
         },
-
         defaults: {
             migrate: 'alter'
         }
-
     }
 };
